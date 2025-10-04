@@ -10,11 +10,15 @@ import {
   faClockRotateLeft,
   faArrowUp,
   faWheatAwn,
-  faCalendarCheck
+  faCalendarCheck,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const { user, isFarmer } = useAuth();
+  
   const [recentFields] = useState([
     { id: 1, name: 'North Field', crop: 'Wheat', stage: 'Flowering', progress: 75 },
     { id: 2, name: 'South Field', crop: 'Rice', stage: 'Maturation', progress: 90 },
@@ -37,8 +41,18 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4 mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Farm Dashboard</h1>
-        <p className="text-gray-600 mt-1">Manage your fields and track crop performance</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Farm Dashboard</h1>
+            <p className="text-gray-600 mt-1">
+              Welcome back, {user?.name} | Manage your fields and track crop performance
+            </p>
+          </div>
+          <div className="flex items-center space-x-2 bg-green-50 px-4 py-2 rounded-lg">
+            <FontAwesomeIcon icon={faUser} className="text-green-600" />
+            <span className="text-green-700 font-medium">Farmer Dashboard</span>
+          </div>
+        </div>
       </div>
 
       <div className="px-6 space-y-6">

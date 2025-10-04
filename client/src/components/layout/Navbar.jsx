@@ -10,16 +10,23 @@ import {
   faPlus,
   faMap,
   faLeaf,
-  faCloudSunRain
+  faCloudSunRain,
+  faUser,
+  faSignOutAlt,
+  faBuilding
 } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css';
 import { useAppContext } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const mobileMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
+  
+  // Authentication context
+  const { user, logout, isFarmer, isGovernment } = useAuth();
   
   // Safely use context with default values if context is undefined
   const contextValue = useAppContext() || {};
@@ -124,6 +131,11 @@ const Navbar = () => {
   
   const navigateToFarmConsole = () => {
     navigate('/farm-console');
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -248,6 +260,26 @@ const Navbar = () => {
                 </datalist>
               </div>
             </div>
+
+            {/* User Profile Section - Desktop */}
+            <div className="hidden md:flex items-center space-x-3">
+              <div className="flex items-center space-x-2 text-white">
+                <div className={`p-2 rounded-full ${isFarmer ? 'bg-green-600' : 'bg-blue-600'}`}>
+                  <FontAwesomeIcon icon={isFarmer ? faUser : faBuilding} className="text-sm" />
+                </div>
+                <div className="text-sm">
+                  <div className="font-medium">{user?.name}</div>
+                  <div className="text-green-200 text-xs capitalize">{user?.userType}</div>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="text-white hover:bg-green-700 p-2 rounded-lg transition-colors"
+                aria-label="Logout"
+              >
+                <FontAwesomeIcon icon={faSignOutAlt} className="text-sm" />
+              </button>
+            </div>
           </div>
           
           {/* Mobile Navigation Menu */}
@@ -370,6 +402,29 @@ const Navbar = () => {
                   <FontAwesomeIcon icon={faMicrophone} className="mr-3 text-green-300 w-4 h-4" />
                   AI Assistant
                 </Link>
+                
+                {/* User Profile Section - Mobile */}
+                <div className="border-t border-green-800 mt-4 pt-4 px-5">
+                  <div className="flex items-center mb-3">
+                    <div className={`p-2 rounded-full mr-3 ${isFarmer ? 'bg-green-600' : 'bg-blue-600'}`}>
+                      <FontAwesomeIcon icon={isFarmer ? faUser : faBuilding} className="text-white text-sm" />
+                    </div>
+                    <div className="text-white">
+                      <div className="font-medium text-sm">{user?.name}</div>
+                      <div className="text-green-200 text-xs capitalize">{user?.userType}</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center px-5 py-3 text-white hover:bg-red-600/50 active:bg-red-600/70 transition-colors text-sm font-medium rounded-lg"
+                  >
+                    <FontAwesomeIcon icon={faSignOutAlt} className="mr-3 text-red-300 w-4 h-4" />
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
         </div>
