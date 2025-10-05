@@ -12,6 +12,7 @@ import CreateField from './pages/CreateField';
 import Fields from './pages/Fields';
 import FieldDetail from './pages/FieldDetail';
 import FinancialAid from './pages/FinancialAid';
+import ClimateDamageClaim from './pages/ClimateDamageClaim';
 import WaterManagement from './pages/WaterManagement';
 import PlantDiseaseDetection from './pages/PlantDiseaseDetection';
 import CropLifecycle from './pages/CropLifecycle';
@@ -142,6 +143,16 @@ function App() {
                 <ProtectedRoute userType="farmer">
                   <Layout>
                     <FinancialAid />
+                  </Layout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/climate-damage-claim" 
+              element={
+                <ProtectedRoute userType="farmer">
+                  <Layout>
+                    <ClimateDamageClaim />
                   </Layout>
                 </ProtectedRoute>
               } 

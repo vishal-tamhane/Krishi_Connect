@@ -48,11 +48,14 @@ import {
   faChartPie,
   faCloudShowersHeavy,
   faMapMarkedAlt,
-  faSearchDollar
+  faSearchDollar,
+  faFileInvoiceDollar
 } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = ({ isSidebarOpen, isCollapsed, toggleSidebar }) => {
   const location = useLocation();
+  const { user, isFarmer } = useAuth();
   const [expandedMenus, setExpandedMenus] = useState({
     analytics: false,
     pests: false,
@@ -373,6 +376,51 @@ useEffect(() => {
                 </li>
               </ul>
             </div>
+
+            {/* Financial Aid - Only for Farmers */}
+            {isFarmer && (
+              <div className="mb-4">
+                {!isCollapsed && (
+                  <h3 className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-2 px-2">
+                    Financial Aid
+                  </h3>
+                )}
+                <ul className="space-y-1">
+                  <li>
+                    <Link
+                      to="/climate-damage-claim"
+                      className={`flex items-center px-2 md:px-3 py-2 md:py-2.5 rounded-lg ${isCollapsed ? 'justify-center' : ''} ${
+                        isActive('/climate-damage-claim') 
+                          ? 'bg-blue-500 text-white font-medium shadow-sm' 
+                          : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700'
+                      } group transition-all duration-200 touch-manipulation`}
+                    >
+                      <FontAwesomeIcon
+                        icon={faFileInvoiceDollar}
+                        className={`w-4 h-4 md:w-5 md:h-5 ${isActive('/climate-damage-claim') ? 'text-white' : 'text-gray-500 group-hover:text-blue-600'}`}
+                      />
+                      {!isCollapsed && <span className="ml-2 md:ml-3 whitespace-nowrap text-sm md:text-base">Climate Damage Claim</span>}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/financial-aid"
+                      className={`flex items-center px-2 md:px-3 py-2 md:py-2.5 rounded-lg ${isCollapsed ? 'justify-center' : ''} ${
+                        isActive('/financial-aid') 
+                          ? 'bg-blue-500 text-white font-medium shadow-sm' 
+                          : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700'
+                      } group transition-all duration-200 touch-manipulation`}
+                    >
+                      <FontAwesomeIcon
+                        icon={faHandHoldingDollar}
+                        className={`w-4 h-4 md:w-5 md:h-5 ${isActive('/financial-aid') ? 'text-white' : 'text-gray-500 group-hover:text-blue-600'}`}
+                      />
+                      {!isCollapsed && <span className="ml-2 md:ml-3 whitespace-nowrap text-sm md:text-base">Financial Aid</span>}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
 
             {/* AI Tools */}
             <div className="mb-4">
