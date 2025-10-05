@@ -1,0 +1,47 @@
+# Requirements for Krishi Connect PostgreSQL Implementation
+# Flask Backend with PostgreSQL Database
+
+# Core Flask Framework
+Flask==3.0.0
+flask-cors==4.0.0
+Werkzeug==3.0.1
+
+# PostgreSQL Database
+psycopg2-binary==2.9.9
+SQLAlchemy==2.0.23  # Optional ORM (if needed later)
+
+# Authentication & Security
+PyJWT==2.8.0
+bcrypt==4.1.2
+cryptography==41.0.8
+
+# Environment & Configuration
+python-dotenv==1.0.0
+
+# File Handling & Uploads
+Pillow==10.1.0  # For image processing
+werkzeug==3.0.1  # For file uploads
+
+# Data Processing & Analysis
+pandas==2.1.4  # For data analysis
+numpy==1.26.2   # For numerical operations
+
+# Machine Learning (for yield predictions)
+scikit-learn==1.3.2
+joblib==1.3.2
+
+# API Documentation (Optional)
+flask-restx==1.3.0  # For API documentation
+marshmallow==3.20.2  # For data serialization
+
+# Development & Testing
+pytest==7.4.3
+pytest-flask==1.3.0
+python-dateutil==2.8.2
+
+# Logging & Monitoring
+structlog==23.2.0
+
+# Additional Utilities
+requests==2.31.0  # For external API calls
+urllib3==2.1.0
